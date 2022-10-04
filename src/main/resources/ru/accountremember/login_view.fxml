@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.accountremember.controller.LoginController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <TextField fx:id="login" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Login">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+    </TextField>
+    <PasswordField fx:id="userPassword" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="User password" />
+    <PasswordField fx:id="dataBasePassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Data base password" />
+    <Label fx:id="returnMessage" alignment="CENTER" prefHeight="17.0" prefWidth="180.0" textFill="RED" />
+    <Button fx:id="button" onAction="#loginButton" text="Log in" />
+</VBox>

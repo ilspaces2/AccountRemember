@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.accountremember.controller.AccountRememberController">
+    <children>
+        <TableView fx:id="tableSites" layoutX="25.0" layoutY="14.0" prefHeight="390.0" prefWidth="772.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="50.0" text="Id" />
+                <TableColumn fx:id="siteColumn" minWidth="-Infinity" prefWidth="215.0" text="Site" />
+                <TableColumn fx:id="loginColumn" minWidth="0.0" prefWidth="216.0" text="Login" />
+                <TableColumn fx:id="passwordColumn" prefWidth="215.0" text="Password" />
+            </columns>
+        </TableView>
+        <ButtonBar layoutX="14.0" layoutY="469.0" prefHeight="25.0" prefWidth="693.0">
+            <buttons>
+                <Button mnemonicParsing="false" onAction="#addSite" text="Save" />
+                <Button mnemonicParsing="false" onAction="#findByName" text="Find by name" />
+                <Button mnemonicParsing="false" onAction="#findAll" text="Find all">
+                    <rotationAxis>
+                        <Point3D />
+                    </rotationAxis>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#deleteById" text="Delete by id" textFill="RED" />
+                <Button mnemonicParsing="false" onAction="#deleteAll" text="Delete all" textFill="RED" />
+            </buttons>
+        </ButtonBar>
+        <HBox layoutX="12.0" layoutY="424.0" prefHeight="45.0" prefWidth="798.0">
+            <children>
+                <TextField fx:id="siteId" promptText="Id">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </TextField>
+                <TextField fx:id="siteName" prefHeight="20.0" prefWidth="220.0" promptText="Site name">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </TextField>
+                <TextField fx:id="siteLogin" prefWidth="220.0" promptText="Login">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </TextField>
+                <PasswordField fx:id="sitePassword" prefWidth="220.0" promptText="Password">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </PasswordField>
+            </children>
+        </HBox>
+    </children>
+</Pane>
