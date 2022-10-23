@@ -1,6 +1,7 @@
 package ru.accountremember.repository;
 
-import ru.accountremember.AccountRememberApp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.accountremember.model.Site;
 import ru.accountremember.utils.PasswordCoderDecoder;
 
@@ -14,7 +15,10 @@ import java.util.List;
 
 public class SiteDBStore {
 
+    public static final Logger log = LoggerFactory.getLogger(SiteDBStore.class.getName());
+
     private final PasswordCoderDecoder pcd = new PasswordCoderDecoder();
+
     private final Connection connection;
 
     public SiteDBStore(Connection connection) {
@@ -34,9 +38,9 @@ public class SiteDBStore {
                     site.setId(generatedKeys.getInt(1));
                 }
             }
-            AccountRememberApp.LOG.info("Site added: {}", site.getName());
+            log.info("Site added: {}", site.getName());
         } catch (Exception e) {
-            AccountRememberApp.LOG.error("Add error: {}", e.getMessage());
+            log.error("Add error: {}", e.getMessage());
         }
         return site;
     }
@@ -51,7 +55,7 @@ public class SiteDBStore {
                 }
             }
         } catch (Exception e) {
-            AccountRememberApp.LOG.error("FindAll error: {}", e.getMessage());
+            log.error("FindAll error: {}", e.getMessage());
         }
         return sites;
     }
@@ -67,7 +71,7 @@ public class SiteDBStore {
                 }
             }
         } catch (Exception e) {
-            AccountRememberApp.LOG.error("findByName error: {}", e.getMessage());
+            log.error("FindByName error: {}", e.getMessage());
         }
         return sites;
     }
@@ -76,10 +80,10 @@ public class SiteDBStore {
     public void deleteAll() {
         try (PreparedStatement ps = connection.prepareStatement("delete from site")) {
             if (ps.executeUpdate() > 0) {
-                AccountRememberApp.LOG.info("Base is empty");
+                log.info("Base is empty");
             }
         } catch (Exception e) {
-            AccountRememberApp.LOG.error("delete all error: {}", e.getMessage());
+            log.error("Delete all error: {}", e.getMessage());
         }
     }
 
@@ -87,10 +91,10 @@ public class SiteDBStore {
         try (PreparedStatement ps = connection.prepareStatement("delete from site where id=?")) {
             ps.setInt(1, id);
             if (ps.executeUpdate() > 0) {
-                AccountRememberApp.LOG.info("Site deleted: {}", id);
+                log.info("Site deleted: {}", id);
             }
         } catch (Exception e) {
-            AccountRememberApp.LOG.error("delete by id error: {}", e.getMessage());
+            log.error("Delete by id error: {}", e.getMessage());
         }
     }
 

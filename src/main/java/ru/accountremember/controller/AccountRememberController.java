@@ -24,7 +24,6 @@ import ru.accountremember.model.Site;
 import ru.accountremember.repository.SiteDBStore;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AccountRememberController implements Initializable {

@@ -10,15 +10,18 @@ import javafx.scene.control.TextField;
 
 import javafx.stage.Stage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.accountremember.AccountRememberApp;
 import ru.accountremember.utils.DBConnect;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.h2.tools.Backup;
 
 public class LoginController {
+
+    public static final Logger log = LoggerFactory.getLogger(LoginController.class.getName());
 
     public static Connection connection;
     @FXML
@@ -34,34 +37,38 @@ public class LoginController {
 
     @FXML
     private void loginButton() {
-        try {
-            connection = new DBConnect().init(login.getText(), userPassword.getText(), dataBasePassword.getText());
-            if (connection != null) {
-                ((Stage) returnMessage.getScene().getWindow()).close();
-                openAccountRememberView();
-            } else {
-                login.clear();
-                userPassword.clear();
-                dataBasePassword.clear();
-                returnMessage.setText("Login or passwords invalid");
-            }
-        } catch (Exception e) {
-            AccountRememberApp.LOG.error("Login error: {}", e.getMessage());
+        connection = new DBConnect().init(login.getText(), userPassword.getText(), dataBasePassword.getText());
+        if (connection != null) {
+            ((Stage) returnMessage.getScene().getWindow()).close();
+            openAccountRememberView();
+        } else {
+            login.clear();
+            userPassword.clear();
+            dataBasePassword.clear();
+            returnMessage.setText("Login or passwords invalid");
         }
     }
 
-    private void openAccountRememberView() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(AccountRememberApp.class.getResource("account_remember_view.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(fxmlLoader.load(), 820, 520));
-        stage.setTitle("Account remember");
-        stage.show();
+    private void openAccountRememberView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(AccountRememberApp.class.getResource("account_remember_view.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load(), 820, 520));
+            stage.setTitle("Account remember");
+            stage.show();
+            closeAndBackup(stage);
+        } catch (Exception e) {
+            log.error("OpenAccountRememberView : {}", e.getMessage());
+        }
+    }
+
+    private void closeAndBackup(Stage stage) {
         stage.setOnCloseRequest(windowEvent -> {
             try {
                 connection.close();
-                Backup.execute("~/.db_bup/base.zip", "./", "AccRemBase", true);
-            } catch (SQLException e) {
-                AccountRememberApp.LOG.error("Exit program : {}", e.getMessage());
+                Backup.execute("~/.dataDB/DB.zip", "./", "DB", true);
+            } catch (Exception e) {
+                log.error("CloseAndBackup program : {}", e.getMessage());
             }
         });
     }
