@@ -66,7 +66,7 @@ public class LoginController {
         stage.setOnCloseRequest(windowEvent -> {
             try {
                 connection.close();
-                Backup.execute("~/.dataDB/DB.zip", "./", "DB", true);
+                Backup.execute("~/DB.zip", "./data", "DB", true);
             } catch (Exception e) {
                 log.error("CloseAndBackup program : {}", e.getMessage());
             }
